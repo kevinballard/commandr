@@ -132,6 +132,11 @@ import sys
 
 if sys.version_info[0] == 2:
   range = xrange
+  def iteritems(d):
+    return d.iteritems()
+else:
+  def iteritems(d):
+    return d.items()
 
 class CommandInfo(
   namedtuple('BaseCommandInfo',
@@ -411,7 +416,7 @@ class Commandr(object):
         # Update arg
         options_dict[key] = value
 
-    for key, value in options_dict.items():
+    for key, value in iteritems(options_dict):
       if value is None:
         if key not in defaults_dict:
           self._HelpExitCommand(
