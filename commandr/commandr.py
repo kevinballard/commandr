@@ -63,7 +63,7 @@
 #       message = message.upper()
 #
 #     for _ in xrange(times):
-#       print message
+#       print(message)
 #
 #   if __name__ == '__main__':
 #     Run()
@@ -423,7 +423,7 @@ class Commandr(object):
       self.Usage(str(e) or None)
 
     if result:
-      print result
+      print(result)
 
   def _BuildOptParse(self, info):
     """Sets the current command parser to reflect the provided command.
@@ -564,9 +564,10 @@ class Commandr(object):
     Args:
       prefix - Command name prefix.
     """
-    print ' '.join([
+    print(' '.join([
         c.name for c in self._command_list
         if c.name.startswith(prefix)])
+    )
 
     sys.exit(0)
 
@@ -595,13 +596,13 @@ class Commandr(object):
     if self.main_docs:
       import __main__
       if getattr(__main__, '__doc__', None):
-        print __main__.__doc__, "\n"
+        print(__main__.__doc__, "\n")
       if getattr(__main__, '__copyright__', None):
-        print __main__.__copyright__, "\n"
+        print(__main__.__copyright__, "\n")
 
     if message:
       # Emit the error message.
-      print message, "\n"
+      print(message, "\n")
 
     # Emit a list of registered commands.
     categories = [None] + [c.category for c in self._command_list]
@@ -616,7 +617,7 @@ class Commandr(object):
 
     for command in sorted(self._command_list, _compare_commands):
       if command.category != last_category:
-        print "%s Commands:" % (command.category or "General")
+        print("%s Commands:" % (command.category or "General"))
         last_category = command.category
 
       if hasattr(command.callable, '__doc__') and command.callable.__doc__:
@@ -627,7 +628,7 @@ class Commandr(object):
       doc = " - %s" % " ".join(docs) if docs else ""
       name = ("[%s]" % command.name if command.name == self.main
               else command.name)
-      print "  %s%s" % (name, doc)
+      print("  %s%s" % (name, doc))
 
     sys.exit(1)
 
@@ -644,32 +645,32 @@ class Commandr(object):
     """
     # Emit the error message.
     if message:
-      print message
-      print ''
+      print(message)
+      print('')
 
     if options_dict:
       if not arglist:
         arglist = sorted(options_dict.keys())
-      print "Current Options:"
+      print("Current Options:")
       for arg in arglist:
         arg_start =  " --%s=" % arg
         arg_list = (arg_start.join(str(a) for a in options_dict[arg])
                     if isinstance(options_dict[arg], list)
                     else str(options_dict[arg]))
-        print "%s%s" % (arg_start, arg_list)
-      print ""
+        print("%s%s" % (arg_start, arg_list))
+      print("")
 
     # Emit the documentation for the command.
     if cmd_fn.__doc__:
-      print "Documentation for command '%s':" % cmd_name
-      print "-" * 40
-      print cmd_fn.__doc__
-      print "-" * 40
+      print("Documentation for command '%s':" % cmd_name)
+      print("-" * 40)
+      print(cmd_fn.__doc__)
+      print("-" * 40)
 
     else:
-      print "No documentation for command '%s'." % cmd_name
+      print("No documentation for command '%s'." % cmd_name)
 
-    print ''
+    print('')
 
     # Emit the documentation for the parser.
     self.parser.print_help()

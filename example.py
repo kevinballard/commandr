@@ -35,7 +35,7 @@ def SayGreeting(name, title='Mr.', times=1, comma=False, caps_lock=False):
     message = message.upper()
 
   for _ in xrange(times):
-    print message
+    print(message)
 
 @command
 def simple_greet(name):
@@ -46,7 +46,7 @@ def simple_greet(name):
   """
   if name == 'John':
     raise CommandrUsageError("John is not a valid name.")
-  print 'Hi %s!' % name
+  print('Hi %s!' % name)
 
 @command()
 def another_simple_greet(name):
@@ -55,12 +55,12 @@ def another_simple_greet(name):
   Arguments:
     name - Name to greet.
   """
-  print 'Aloha %s!' % name
+  print('Aloha %s!' % name)
 
 def some_decorator(fn):
   @wraps(fn)
   def _wrapper(*args, **kwargs):
-    print 'Wrapper Here!'
+    print('Wrapper Here!')
     return fn(*args, **kwargs)
   return _wrapper
 
@@ -68,7 +68,7 @@ def some_decorator(fn):
 @some_decorator
 def DecoratedFunction(arg1, arg2=1):
     """An example usage of stacked decorators."""
-    print arg1, arg2
+    print(arg1, arg2)
 
 if __name__ == '__main__':
   Run(hyphenate=True)

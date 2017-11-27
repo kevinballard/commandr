@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 __all__ = [
     'command',
     'Run',
@@ -24,12 +23,24 @@ __all__ = [
     'CommandrUsageError',
     'CommandrDuplicateMainError']
 
-# Export the global Commandr object methods.
-from commandr import (
-  Commandr,
-  CommandrError,
-  CommandrUsageError,
-  CommandrDuplicateMainError)
+import sys
+
+# Export the global Commandr object methods and the decorator utils.
+if sys.version_info[0] == 2:
+  from commandr import (
+      Commandr,
+      CommandrError,
+      CommandrUsageError,
+      CommandrDuplicateMainError)
+  from functools_util import update_wrapper, wraps, MonkeyPatchFunctools
+else:
+  from .commandr import (
+      Commandr,
+      CommandrError,
+      CommandrUsageError,
+      CommandrDuplicateMainError)
+  from .functools_util import update_wrapper, wraps, MonkeyPatchFunctools
+
 
 _COMMANDR = Commandr()
 
@@ -38,6 +49,3 @@ Run = _COMMANDR.Run
 RunFunction = _COMMANDR.RunFunction
 SetOptions = _COMMANDR.SetOptions
 Usage = _COMMANDR.Usage
-
-# Export the decorator utils.
-from functools_util import update_wrapper, wraps, MonkeyPatchFunctools
