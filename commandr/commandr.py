@@ -130,6 +130,9 @@ from optparse import OptionParser, SUPPRESS_HELP
 from operator import attrgetter
 import sys
 
+if sys.version_info[0] == 2:
+  range = xrange
+
 class CommandInfo(
   namedtuple('BaseCommandInfo',
              ['name', 'callable', 'category', 'ignore_self'])):
@@ -463,7 +466,7 @@ class Commandr(object):
     # Populates defaults iff there is a default
     defaults_dict = {}
     if argspec.defaults:
-      for i in xrange(1, len(argspec.defaults) + 1):
+      for i in range(1, len(argspec.defaults) + 1):
         defaults_dict[argspec.args[-i]] = argspec.defaults[-i]
 
     for arg in argspec.args:

@@ -18,6 +18,10 @@
 """Example usage of commandr."""
 
 from commandr import command, Run, CommandrUsageError, wraps
+import sys
+
+if sys.version_info[0] == 2:
+  range = xrange
 
 @command('greet')
 def SayGreeting(name, title='Mr.', times=1, comma=False, caps_lock=False):
@@ -34,7 +38,7 @@ def SayGreeting(name, title='Mr.', times=1, comma=False, caps_lock=False):
   if caps_lock:
     message = message.upper()
 
-  for _ in xrange(times):
+  for _ in range(times):
     print(message)
 
 @command
