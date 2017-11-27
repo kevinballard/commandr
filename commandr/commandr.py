@@ -408,7 +408,7 @@ class Commandr(object):
         # Update arg
         options_dict[key] = value
 
-    for key, value in options_dict.iteritems():
+    for key, value in options_dict.items():
       if value is None:
         if key not in defaults_dict:
           self._HelpExitCommand(
