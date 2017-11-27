@@ -127,6 +127,7 @@ from collections import namedtuple
 import inspect
 import itertools
 from optparse import OptionParser, SUPPRESS_HELP
+from operator import attrgetter
 import sys
 
 class CommandInfo(
@@ -610,12 +611,7 @@ class Commandr(object):
 
     last_category = -1
 
-    def _compare_commands(a, b):
-      by_cat = cmp(categories.index(a.category), categories.index(b.category))
-      by_order = cmp(appear_order.index(a.name), appear_order.index(b.name))
-      return by_cat or by_order
-
-    for command in sorted(self._command_list, _compare_commands):
+    for command in sorted(self._command_list, key=attrgetter('category', 'name')):
       if command.category != last_category:
         print("%s Commands:" % (command.category or "General"))
         last_category = command.category
