@@ -213,7 +213,7 @@ class Commandr(object):
     # Handle no command_name case.
     if callable(command_name):
       cmd_func = command_name
-      return command_decorator(cmd_func, cmd_func.func_name)
+      return command_decorator(cmd_func, cmd_func.__name__)
 
     return command_decorator
 
@@ -222,14 +222,14 @@ class Commandr(object):
 
     Args:
       cmd_fn - The function to add.
-      cmd_fn_name - The name of the command being added or the func_name.
+      cmd_fn_name - The name of the command being added or the __name__.
       category - The category of the command.
       ignore_self - Whether to ignore self in the arg list.
     Returns:
       info - The CommandInfo created.
     """
     final_name = (cmd_fn_name if cmd_fn_name is not None
-                  else cmd_fn.func_name)
+                  else cmd_fn.__name__)
     info = CommandInfo(final_name, cmd_fn, category, ignore_self)
     self._all_commands[info.name] = info
     self._command_list.append(info)
