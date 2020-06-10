@@ -484,10 +484,6 @@ class Commandr(object):
         if ignore:
           continue
 
-      # If the default is True, make the argument a negative
-      if arg in defaults_dict and repr(defaults_dict[arg]) == 'True':
-        argname = 'no_%s' % argname
-
       args = ['--%s' % argname]
 
       switch_options = (argname[0], argname[0].upper())
@@ -499,14 +495,19 @@ class Commandr(object):
 
       if arg in defaults_dict:
         if repr(defaults_dict[arg]) == 'False':
-          self._AddOption(args, dest=arg, action='store_true',
-                      default=False)
+          self._AddOption(
+              ['--%s' % argname], dest=arg, action='store_true', default=False)
+          self._AddOption(
+              ['--no_%s' % argname], dest=arg, action='store_false',
+              default=False)
         elif repr(defaults_dict[arg]) == 'True':
-          self._AddOption(args, dest=arg, action='store_false',
-                      default=True)
+          self._AddOption(
+              ['--%s' % argname], dest=arg, action='store_true', default=True)
+          self._AddOption(
+              ['--no_%s' % argname], dest=arg, action='store_false',
+              default=True)
         elif isinstance(defaults_dict[arg], list):
-          self._AddOption(args, dest=arg, action='append',
-                          type='string')
+          self._AddOption(args, dest=arg, action='append', type='string')
         else:
           if isinstance(defaults_dict[arg], int):
             arg_type = 'int'

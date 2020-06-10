@@ -21,7 +21,7 @@ from distutils.core import setup
 
 setup(
     name='commandr',
-    version='1.5.0',
+    version='1.6.0',
     packages=['commandr'],
     author='Kevin Ballard',
     author_email='misterkgb@gmail.com',
